@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Technology - The Networking Premium IT Store</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Khmer & Modern UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- HTML5 QRCode Camera Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            font-family: 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Apple Glassmorphism Effects */
+        .apple-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .apple-dark-glass {
+            background: rgba(15, 23, 42, 0.90);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Printable Style */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-area, #printable-area *, #receipt-printable, #receipt-printable * {
+                visibility: visible;
+            }
+            #printable-area, #receipt-printable {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- GLOBAL STORE LOGO SVG DEFINITION TEMPLATE -->
+    <svg class="hidden">
+        <defs>
+            <g id="zone-logo">
+                <path d="M 20 28 A 40 40 0 0 1 80 28" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 30 38 A 28 28 0 0 1 70 38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 40 48 A 16 16 0 0 1 60 48" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="50" cy="54" r="3.5" fill="currentColor"/>
+                <line x1="37" y1="58" x2="33" y2="46" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <line x1="63" y1="58" x2="67" y2="46" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <rect x="32" y="58" width="36" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="4"/>
+                <circle cx="58" cy="64" r="1.5" fill="currentColor"/>
+                <circle cx="62" cy="64" r="1.5" fill="currentColor"/>
+                <path d="M 26 53 L 26 74 Q 26 76 28 76 L 72 76 Q 74 76 74 74 L 74 53" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 20 78 L 80 78 Q 82 78 80 81 L 20 81 Q 18 78 20 78 Z" fill="currentColor"/>
+            </g>
+        </defs>
+    </svg>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 apple-dark-glass border-b border-slate-800 text-slate-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            <!-- Brand Identity -->
+            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="showStorefrontView()">
+                <div class="bg-black p-2 rounded-2xl border border-slate-800 shadow-md flex items-center justify-center">
+                    <svg class="w-7 h-7 text-white fill-current"><use href="#zone-logo"/></svg>
+                </div>
+                <div>
+                    <span class="font-black text-lg tracking-tight text-white flex items-center gap-2">
+                        Zone Technology
+                        <span class="text-[10px] font-bold bg-blue-600/80 text-blue-100 px-2 py-0.5 rounded-full uppercase tracking-wider">Premium IT</span>
+                    </span>
+                    <p class="text-[11px] text-slate-400 font-medium">The Networking & WiFi Hardware Specialists</p>
+                </div>
+            </div>
+
+            <!-- Global Action Bar -->
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <!-- Language Switcher Button -->
+                <button onclick="toggleLanguage()" id="btn-lang-toggle" class="px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+                    <span id="lang-flag">🇰🇭</span> <span id="lang-label">ខ្មែរ</span>
+                </button>
+                <button onclick="showStorefrontView()" id="btn-view-storefront" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30">
+                    <i class="fa-solid fa-store"></i> <span class="hidden sm:inline" data-i18n="storefront">Storefront</span>
+                </button>
+                <button onclick="toggleCartDrawer()" class="relative p-2 rounded-full text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span id="cart-badge-count" class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-slate-950">0</span>
+                </button>
+                <button onclick="openLoginModal()" id="btn-admin-portal" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+                    <i class="fa-solid fa-lock"></i> <span id="admin-portal-label" data-i18n="adminPortal">Admin Portal</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ANNOUNCEMENT BANNER -->
+    <div id="homepage-promo-banner" class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 text-white text-xs py-2 px-4 text-center font-bold tracking-wide shadow-inner flex items-center justify-center gap-2">
+        <i class="fa-solid fa-bolt text-yellow-300"></i>
+        <span id="promo-banner-text">🔥 Promo: Free Setup & Delivery for UniFi & MikroTik Mesh Systems! Hotline: 098 999 196 / 093 936 893 / 087 768 976</span>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-8">
+
+        <!-- ================= 1. PUBLIC STOREFRONT ================= -->
+        <section id="view-storefront" class="space-y-8">
+            <!-- Hero Apple Banner -->
+            <div id="hero-banner-card" class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 border border-slate-800 p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl">
+                <div class="space-y-4 max-w-xl">
+                    <span class="text-xs font-bold tracking-widest text-blue-400 uppercase" data-i18n="heroSubtitle">Enterprise Networking & IT Solutions</span>
+                    <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" id="hero-banner-title">
+                        WiFi 6E & High Performance Networking
+                    </h1>
+                    <p class="text-sm text-slate-300 font-light leading-relaxed" id="hero-banner-desc">
+                        Official supplier of UniFi, MikroTik, Ruijie, TP-Link, Apple MacBooks & Enterprise POS Systems in Cambodia.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3 justify-center sm:justify-start">
+                        <a href="#product-catalog-anchor" class="px-6 py-3 bg-white text-slate-950 hover:bg-slate-200 rounded-full font-extrabold text-xs shadow-lg transition" data-i18n="exploreProducts">
+                            Explore Products
+                        </a>
+                        <button onclick="requestQuotePrompt()" class="px-6 py-3 bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 border border-blue-500/30 rounded-full font-bold text-xs transition" data-i18n="requestQuote">
+                            Request Quote
+                        </button>
+                    </div>
+                </div>
+                <div class="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 bg-slate-900/60 rounded-3xl p-6 border border-slate-800 flex items-center justify-center relative shadow-inner">
+                    <svg class="w-32 h-32 text-blue-500/80 fill-current animate-pulse"><use href="#zone-logo"/></svg>
+                </div>
+            </div>
+
+            <!-- Categories Bar & Search Filter Anchor -->
+            <div id="product-catalog-anchor" class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+                    <!-- Search Input -->
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+                        <input type="text" id="store-search-query" oninput="renderCustomerCatalog()" placeholder="Search Networking, Routers, UniFi, MacBooks..." class="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <!-- Brand / Stock Filter -->
+                    <div class="flex gap-2 overflow-x-auto pb-1 sm:pb-0">
+                        <select id="store-category-filter" onchange="renderCustomerCatalog()" class="bg-slate-950 border border-slate-800 text-slate-300 text-xs px-3 py-2 rounded-xl focus:outline-none">
+                            <option value="ALL">All Categories</option>
+                            <option value="Networking">Networking</option>
+                            <option value="Wi-Fi">Wi-Fi</option>
+                            <option value="Routers">Routers</option>
+                            <option value="Switches">Switches</option>
+                            <option value="Access Points">Access Points</option>
+                            <option value="UniFi">UniFi</option>
+                            <option value="Ruijie">Ruijie</option>
+                            <option value="MikroTik">MikroTik</option>
+                            <option value="TP-Link">TP-Link</option>
+                            <option value="POS Systems">POS Systems</option>
+                            <option value="MacBooks">MacBooks</option>
+                            <option value="Windows Computers">Windows Computers</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="IT Services">IT Services</option>
+                        </select>
+                        <select id="store-availability-filter" onchange="renderCustomerCatalog()" class="bg-slate-950 border border-slate-800 text-slate-300 text-xs px-3 py-2 rounded-xl focus:outline-none">
+                            <option value="ALL">All Statuses</option>
+                            <option value="IN_STOCK">In Stock</option>
+                            <option value="LOW_STOCK">Low Stock</option>
+                            <option value="PRE_ORDER">Pre-order Available</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Showcase Grid -->
+                <div id="customer-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= 2. ADMIN DASHBOARD & POS BACKOFFICE ================= -->
+        <section id="view-admin-dashboard" class="hidden space-y-6">
+            <!-- Admin Top Navigation Tabs -->
+            <div class="flex items-center justify-between flex-wrap gap-4 bg-slate-900 p-3 rounded-2xl border border-slate-800">
+                <div class="flex items-center gap-2 overflow-x-auto">
+                    <button onclick="switchAdminSubtab('pos')" id="admin-nav-pos" class="px-4 py-2 text-xs font-bold rounded-xl transition bg-blue-600 text-white">
+                        <i class="fa-solid fa-cart-shopping mr-1"></i> POS Sales
+                    </button>
+                    <button onclick="switchAdminSubtab('orders')" id="admin-nav-orders" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-list-check mr-1"></i> Customer Orders
+                    </button>
+                    <button onclick="switchAdminSubtab('preorders')" id="admin-nav-preorders" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-clock mr-1"></i> Pre-Orders
+                    </button>
+                    <button onclick="switchAdminSubtab('stock')" id="admin-nav-stock" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-warehouse mr-1"></i> Products & Stock
+                    </button>
+                    <button onclick="switchAdminSubtab('banner')" id="admin-nav-banner" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-sliders mr-1"></i> Banners & CMS
+                    </button>
+                    <button onclick="switchAdminSubtab('reports')" id="admin-nav-reports" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Reports & Closing
+                    </button>
+                    <button onclick="switchAdminSubtab('users')" id="admin-nav-users" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-user-shield mr-1"></i> User Roles
+                    </button>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-semibold text-slate-400">Logged in: <b id="admin-username-display" class="text-emerald-400">Owner</b></span>
+                    <button onclick="handleLogout()" class="px-3 py-1.5 bg-rose-600/20 text-rose-300 hover:bg-rose-600 hover:text-white font-bold rounded-xl text-xs transition">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUBTAB: POS SALES -->
+            <div id="admin-subtab-pos" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-1 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-3 flex items-center justify-between">
+                            <span><i class="fa-solid fa-barcode text-blue-500 mr-2"></i> <span data-i18n="posScan">POS Express Scan</span></span>
+                        </h3>
+                        <div class="flex gap-1.5">
+                            <button onclick="setQuickQty(1)" class="flex-1 py-1 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition">+1</button>
+                            <button onclick="setQuickQty(2)" class="flex-1 py-1 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition">+2</button>
+                            <button onclick="setQuickQty(5)" class="flex-1 py-1 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition">+5</button>
+                            <button onclick="setQuickQty(10)" class="flex-1 py-1 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition">+10</button>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1" data-i18n="scanItemCode">Scan / Enter Item Code</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="pos-search-code" oninput="onPosCodeInput()" placeholder="e.g. 16Q9269" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white uppercase font-bold focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                <button onclick="openCameraScanner()" class="px-3 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition flex items-center gap-1 whitespace-nowrap">
+                                    <i class="fa-solid fa-camera"></i> <span data-i18n="scanBtn">Scan</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-bold text-slate-400">Item Name (Auto)</label>
+                                <span id="pos-stock-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">Stock: -</span>
+                            </div>
+                            <input type="text" id="pos-item-name" readonly placeholder="Scanned item will appear..." class="w-full px-3 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl font-bold text-slate-300 outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Price ($)</label>
+                                <input type="number" id="pos-item-price" readonly placeholder="0.00" class="w-full px-3 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl font-bold text-slate-300 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Qty</label>
+                                <input type="number" id="pos-item-qty" value="1" min="1" oninput="calculatePosTotal()" class="w-full px-3 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl font-bold text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Customer Name</label>
+                            <input type="text" id="pos-customer-name" placeholder="Customer Name" class="w-full px-3 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Serial Number (S/N)</label>
+                            <input type="text" id="pos-item-sn" placeholder="e.g. SN-98230192" class="w-full px-3 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div class="pt-2 border-t border-slate-800">
+                            <div class="flex justify-between items-center bg-blue-950/60 p-3 rounded-xl border border-blue-800/50">
+                                <span class="text-xs font-bold text-blue-200">Total Price</span>
+                                <span class="text-xl font-black text-blue-400">$<span id="pos-total-price">0.00</span></span>
+                            </div>
+                        </div>
+                        <button onclick="saveSaleTransaction()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Complete POS Sale & Print Slip
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-slate-200 flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-blue-500"></i> Recent POS Transactions
+                            </h3>
+                            <span class="text-xs text-slate-500" id="recent-sales-count">0 Sales</span>
+                        </div>
+                        <div class="overflow-x-auto max-h-[500px]">
+                            <table class="w-full text-left text-xs border-collapse text-slate-300">
+                                <thead>
+                                    <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                        <th class="p-3">Inv ID</th>
+                                        <th class="p-3">Date</th>
+                                        <th class="p-3">Customer</th>
+                                        <th class="p-3">Product</th>
+                                        <th class="p-3">S/N</th>
+                                        <th class="p-3 text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pos-history-tbody" class="divide-y divide-slate-800/60"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB: ONLINE CUSTOMER ORDERS -->
+            <div id="admin-subtab-orders" class="hidden space-y-4 bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="font-bold text-slate-200 text-base">Online Customer Orders & Fulfillment</h3>
+                        <p class="text-xs text-slate-400">Manage pickup, GrabExpress delivery, and payment verification.</p>
+                    </div>
+                    <span id="orders-count-badge" class="bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs px-3 py-1 rounded-full font-bold">0 Orders</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse text-slate-300">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                <th class="p-3">Order ID</th>
+                                <th class="p-3">Customer Info</th>
+                                <th class="p-3">Fulfillment</th>
+                                <th class="p-3">Payment</th>
+                                <th class="p-3">Total</th>
+                                <th class="p-3 text-center">Status</th>
+                                <th class="p-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-tbody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SUBTAB: PRE-ORDERS -->
+            <div id="admin-subtab-preorders" class="hidden space-y-4">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-1 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-3"><i class="fa-solid fa-calendar-plus text-blue-500 mr-2"></i> Record Pre-Order</h3>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Customer Name</label>
+                            <input type="text" id="po-customer-name" placeholder="Customer Name" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Phone Number</label>
+                            <input type="text" id="po-customer-phone" placeholder="012 345 678" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Select Product</label>
+                            <select id="po-product-select" onchange="onPreorderProductSelect()" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                                <option value="">-- Select Item --</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Qty</label>
+                                <input type="number" id="po-qty" value="1" min="1" oninput="calculatePreorderTotal()" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Total ($)</label>
+                                <input type="number" id="po-total-price" readonly placeholder="0.00" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-slate-400 outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Deposit ($)</label>
+                                <input type="number" id="po-deposit" value="0" step="0.01" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-emerald-400 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Expected Date</label>
+                                <input type="date" id="po-expected-date" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                            </div>
+                        </div>
+                        <button onclick="savePreOrder()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-lg transition">
+                            Save Pre-Order
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-slate-200"><i class="fa-solid fa-list-check text-blue-500 mr-2"></i> Pre-Orders Queue</h3>
+                            <span class="text-xs text-slate-500" id="preorder-count-label">0 Pre-orders</span>
+                        </div>
+                        <div class="overflow-x-auto max-h-[500px]">
+                            <table class="w-full text-left text-xs border-collapse text-slate-300">
+                                <thead>
+                                    <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                        <th class="p-3">PO Code</th>
+                                        <th class="p-3">Customer</th>
+                                        <th class="p-3">Product</th>
+                                        <th class="p-3">Deposit</th>
+                                        <th class="p-3">Expected Date</th>
+                                        <th class="p-3 text-center">Status</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="preorders-list-tbody" class="divide-y divide-slate-800"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB: STOCK & PRODUCT CATALOG ADMIN -->
+            <div id="admin-subtab-stock" class="hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-1 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-3"><i class="fa-solid fa-box text-blue-500 mr-2"></i> Add / Edit Product</h3>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Item Code / Barcode</label>
+                            <input type="text" id="prod-code-input" placeholder="e.g. 16Q9269" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white uppercase font-bold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Product Name</label>
+                            <input type="text" id="prod-name-input" placeholder="WiFi Router AX3000" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Category</label>
+                                <select id="prod-cat-input" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                                    <option value="Networking">Networking</option>
+                                    <option value="Wi-Fi">Wi-Fi</option>
+                                    <option value="Routers">Routers</option>
+                                    <option value="Switches">Switches</option>
+                                    <option value="Access Points">Access Points</option>
+                                    <option value="UniFi">UniFi</option>
+                                    <option value="Ruijie">Ruijie</option>
+                                    <option value="MikroTik">MikroTik</option>
+                                    <option value="TP-Link">TP-Link</option>
+                                    <option value="POS Systems">POS Systems</option>
+                                    <option value="MacBooks">MacBooks</option>
+                                    <option value="Windows Computers">Windows Computers</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="IT Services">IT Services</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Brand</label>
+                                <input type="text" id="prod-brand-input" placeholder="e.g. Ubiquiti" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Price ($)</label>
+                                <input type="number" id="prod-price-input" placeholder="0.00" step="0.01" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1">Stock Qty</label>
+                                <input type="number" id="prod-stock-input" placeholder="0" min="0" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-white outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Warranty</label>
+                            <input type="text" id="prod-warranty-input" placeholder="e.g. 1 Year Official" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Specifications</label>
+                            <textarea id="prod-specs-input" rows="2" placeholder="e.g. Dual-band WiFi 6, 3000 Mbps..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none"></textarea>
+                        </div>
+                        <button onclick="saveNewProduct()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-lg transition">
+                            Save Product & Update QR
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-slate-200"><i class="fa-solid fa-boxes-stacked text-blue-500 mr-2"></i> Inventory Catalog</h3>
+                            <span class="text-xs text-slate-500" id="product-count-label">0 Products</span>
+                        </div>
+                        <div class="overflow-x-auto max-h-[500px]">
+                            <table class="w-full text-left text-xs border-collapse text-slate-300">
+                                <thead>
+                                    <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                        <th class="p-3">Code</th>
+                                        <th class="p-3">Name</th>
+                                        <th class="p-3">Category</th>
+                                        <th class="p-3">Price</th>
+                                        <th class="p-3">Stock</th>
+                                        <th class="p-3 text-center">QR Sticker</th>
+                                        <th class="p-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-list-tbody" class="divide-y divide-slate-800"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB: BANNERS & CMS -->
+            <div id="admin-subtab-banner" class="hidden space-y-6 bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-3"><i class="fa-solid fa-sliders text-blue-500 mr-2"></i> Website Homepage CMS & Banners</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Top Announcement Bar Text</label>
+                            <input type="text" id="cms-banner-input" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Hero Title</label>
+                            <input type="text" id="cms-title-input" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Hero Subtitle / Description</label>
+                            <textarea id="cms-desc-input" rows="3" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-amber-400 mb-1"><i class="fa-solid fa-envelope mr-1"></i> Admin Sales Notification Email</label>
+                            <input type="email" id="cms-email-input" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-emerald-400 font-bold outline-none">
+                        </div>
+                        <button onclick="updateCmsBanners()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs transition">
+                            Update Store Banners & Email Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB: REPORTS & ANALYTICS -->
+            <div id="admin-subtab-reports" class="hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-slate-200 text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-blue-500"></i> Revenue Analytics
+                        </h3>
+                        <div class="h-64">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-slate-200 text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-500"></i> Best Sellers
+                        </h3>
+                        <div class="h-64">
+                            <canvas id="itemsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-200 text-base">Monthly Sales Closing (បិទបញ្ជី)</h3>
+                            <p class="text-xs text-slate-400">Filter monthly sales and calculate totals.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="month" id="report-month-select" class="px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+                            <button onclick="filterSalesReport()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs transition">
+                                Filter
+                            </button>
+                            <button onclick="resetReportFilter()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition">
+                                Show All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block font-semibold">Total Revenue</span>
+                            <span class="text-2xl font-black text-blue-400">$<span id="report-total-revenue">0.00</span></span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block font-semibold">Total Sales Count</span>
+                            <span class="text-2xl font-black text-emerald-400" id="report-total-sales-count">0</span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block font-semibold">Items Sold</span>
+                            <span class="text-2xl font-black text-purple-400" id="report-total-qty-sold">0</span>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse text-slate-300">
+                            <thead>
+                                <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                    <th class="p-3">Inv ID</th>
+                                    <th class="p-3">Date</th>
+                                    <th class="p-3">Customer</th>
+                                    <th class="p-3">Item</th>
+                                    <th class="p-3">S/N</th>
+                                    <th class="p-3 text-right">Total</th>
+                                    <th class="p-3 text-center">Receipt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reports-table-tbody" class="divide-y divide-slate-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB: USER ROLES & PERMISSIONS -->
+            <div id="admin-subtab-users" class="hidden space-y-6 bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div class="border-b border-slate-800 pb-4">
+                    <h3 class="font-bold text-slate-200 text-base">User Permissions & Role Access (Owner Panel)</h3>
+                    <p class="text-xs text-slate-400">Only the Owner (<b class="text-white">Thy_thayuth90</b>) can create, disable, or grant staff privileges.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
+                                <th class="p-3">User ID</th>
+                                <th class="p-3">Role</th>
+                                <th class="p-3">Dashboard Access</th>
+                                <th class="p-3 text-right">Owner Control</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-rbac-tbody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- CART DRAWER MODAL -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-end">
+        <div class="w-full max-w-md bg-slate-900 h-full border-l border-slate-800 flex flex-col p-6 space-y-4 text-slate-100 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-blue-500"></i> Your Shopping Bag
+                </h3>
+                <button onclick="toggleCartDrawer()" class="p-1 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div id="cart-items-container" class="flex-1 overflow-y-auto space-y-3"></div>
+
+            <div id="cart-checkout-section" class="border-t border-slate-800 pt-4 space-y-3">
+                <div class="flex justify-between text-sm font-bold">
+                    <span>Subtotal:</span>
+                    <span class="text-emerald-400" id="cart-subtotal-val">$0.00</span>
+                </div>
+                <button onclick="openCheckoutModal()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-lg transition">
+                    Proceed to Guest Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 space-y-5 text-slate-100 my-8 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-lg text-white">Checkout & Order Confirmation</h3>
+                <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">1. Contact Information</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" id="chk-name" placeholder="Full Name *" required class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none">
+                        <input type="text" id="chk-phone" placeholder="Phone Number *" required class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">2. Fulfillment Option</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" id="btn-ful-pickup" onclick="setFulfillment('pickup')" class="p-3 bg-blue-600 border border-blue-500 rounded-xl text-xs font-bold text-white text-center">
+                            Store Pickup
+                        </button>
+                        <button type="button" id="btn-ful-delivery" onclick="setFulfillment('delivery')" class="p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-slate-400 text-center">
+                            Delivery (GrabExpress)
+                        </button>
+                    </div>
+
+                    <div id="fulfillment-pickup-fields" class="space-y-2 p-3 bg-slate-950 rounded-xl border border-slate-800">
+                        <label class="block text-[11px] font-bold text-slate-400">Pickup Date & Time Slot</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="date" id="chk-pickup-date" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white">
+                            <select id="chk-pickup-slot" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white">
+                                <option value="09:00 AM - 12:00 PM">09:00 AM - 12:00 PM</option>
+                                <option value="02:00 PM - 06:00 PM">02:00 PM - 06:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="fulfillment-delivery-fields" class="hidden space-y-2 p-3 bg-slate-950 rounded-xl border border-slate-800">
+                        <label class="block text-[11px] font-bold text-slate-400">Delivery Address</label>
+                        <input type="text" id="chk-delivery-address" placeholder="House/Street/City Address" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Special Seller Instructions</label>
+                    <textarea id="chk-instructions" rows="2" placeholder="Notes for delivery or setup..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white"></textarea>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">3. Payment Gateway</h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="p-3 bg-slate-950 border border-slate-800 rounded-xl flex flex-col items-center gap-1 cursor-pointer hover:border-blue-500">
+                            <input type="radio" name="chk-payment" value="ABA_KHQR" checked>
+                            <span class="text-[10px] font-bold text-white">ABA KHQR</span>
+                        </label>
+                        <label class="p-3 bg-slate-950 border border-slate-800 rounded-xl flex flex-col items-center gap-1 cursor-pointer hover:border-blue-500">
+                            <input type="radio" name="chk-payment" value="CARD">
+                            <span class="text-[10px] font-bold text-white">Visa/Mastercard</span>
+                        </label>
+                        <label class="p-3 bg-slate-950 border border-slate-800 rounded-xl flex flex-col items-center gap-1 cursor-pointer hover:border-blue-500">
+                            <input type="radio" name="chk-payment" value="COD">
+                            <span class="text-[10px] font-bold text-white">Cash on Pickup</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-slate-400 block">Total Payable:</span>
+                    <span class="text-xl font-black text-emerald-400" id="chk-modal-total">$0.00</span>
+                </div>
+                <button onclick="submitOrderPlacement()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs shadow-lg transition">
+                    Confirm & Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL & REVIEW MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 space-y-4 text-slate-100 shadow-2xl">
+            <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+                <div>
+                    <span id="pmodal-brand" class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Brand</span>
+                    <h3 id="pmodal-name" class="font-bold text-lg text-white">Product Name</h3>
+                </div>
+                <button onclick="closeProductModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-3 text-xs text-slate-300 max-h-[60vh] overflow-y-auto">
+                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
+                    <span class="font-bold text-white text-base" id="pmodal-price">$0.00</span>
+                    <span id="pmodal-stock" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">In Stock</span>
+                </div>
+                <div>
+                    <span class="font-bold text-white block mb-0.5">Warranty:</span>
+                    <p id="pmodal-warranty" class="text-slate-400"></p>
+                </div>
+                <div>
+                    <span class="font-bold text-white block mb-0.5">Specifications:</span>
+                    <p id="pmodal-specs" class="text-slate-400 whitespace-pre-line"></p>
+                </div>
+
+                <div class="border-t border-slate-800 pt-3 space-y-2">
+                    <h4 class="font-bold text-white">Customer Reviews & Ratings</h4>
+                    <div id="pmodal-reviews-list" class="space-y-2"></div>
+
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 mt-2">
+                        <span class="text-[11px] font-bold text-slate-300">Write a Review</span>
+                        <select id="rev-rating" class="w-full px-2 py-1 bg-slate-900 border border-slate-800 rounded text-xs text-white">
+                            <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                            <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                            <option value="3">⭐⭐⭐ 3 Stars</option>
+                        </select>
+                        <textarea id="rev-comment" rows="2" placeholder="Your review comments..." class="w-full px-2 py-1 bg-slate-900 border border-slate-800 rounded text-xs text-white"></textarea>
+                        <button onclick="submitProductReview()" class="px-3 py-1 bg-blue-600 text-white rounded text-xs font-bold">Submit Review</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN OVERLAY MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-800 space-y-6">
+            <div class="text-center space-y-2">
+                <div class="bg-black p-3 rounded-2xl inline-block border border-slate-800">
+                    <svg class="w-10 h-10 text-white fill-current"><use href="#zone-logo"/></svg>
+                </div>
+                <h2 class="text-xl font-black text-white tracking-wide">Zone Technology Admin Portal</h2>
+                <p class="text-xs text-slate-400">Sign in as Owner or Admin to manage store</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">User ID / Username</label>
+                    <input type="text" id="login-username" required placeholder="Thy_thayuth90 or Sim-serymom12" class="w-full px-4 py-3 text-xs bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter Password" class="w-full px-4 py-3 text-xs bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                </div>
+                <div id="login-error" class="hidden text-xs text-rose-400 font-semibold bg-rose-950/50 p-2 rounded-lg border border-rose-800/50 text-center">
+                    Username or Password incorrect / Unauthorized!
+                </div>
+                <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg transition text-xs">
+                    <i class="fa-solid fa-right-to-bracket mr-1"></i> Sign In to Dashboard
+                </button>
+            </form>
+            <div class="text-center">
+                <button onclick="closeLoginModal()" class="text-xs text-slate-500 hover:text-slate-300">Cancel & Return to Storefront</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Scanner Modal -->
+    <div id="camera-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-2xl max-w-sm w-full p-4 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <h3 class="font-bold text-white text-xs">Scan QR Code</h3>
+                <button onclick="closeCameraScanner()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="reader" class="w-full rounded-xl overflow-hidden border border-slate-800"></div>
+        </div>
+    </div>
+
+    <!-- Printable QR Modal -->
+    <div id="qr-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-2xl max-w-xs w-full p-6 border border-slate-800 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2 no-print">
+                <h3 class="font-bold text-white">Print QR Sticker</h3>
+                <button onclick="closeQrModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div id="printable-area" class="bg-white p-4 border-2 border-dashed border-slate-300 rounded-xl text-center space-y-2 text-slate-900">
+                <p class="font-black text-xs uppercase tracking-wide">Zone Technology</p>
+                <div id="modal-qr-container" class="flex justify-center py-2"></div>
+                <div class="font-mono font-black text-sm text-blue-700" id="modal-qr-code-text">16Q9269</div>
+                <div class="font-semibold text-xs" id="modal-qr-name-text">WiFi Router AX3000</div>
+                <div class="font-bold text-xs text-emerald-600" id="modal-qr-price-text">$0.00</div>
+            </div>
+
+            <div class="flex gap-2 pt-2 no-print">
+                <button onclick="window.print()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs transition">
+                    <i class="fa-solid fa-print"></i> Print Sticker
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Mini Receipt Modal -->
+    <div id="receipt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-2xl max-w-xs w-full p-6 border border-slate-800 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2 no-print">
+                <h3 class="font-bold text-white text-xs">Mini Receipt</h3>
+                <button onclick="closeReceiptModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div id="receipt-printable" class="bg-white p-4 font-mono text-xs text-slate-900 border border-slate-200 rounded-xl space-y-3">
+                <div class="text-center space-y-1">
+                    <h2 class="font-black text-sm uppercase tracking-wide">Zone Technology</h2>
+                    <p class="text-[10px] leading-tight">Tel: 098 999 196 / 093 936 893 / 087 768 976</p>
+                    <p class="text-[10px] leading-tight">Email: thythayuth90@gmail.com</p>
+                    <p class="font-bold text-xs pt-1.5 border-t border-dashed border-slate-300">RECEIPT / វិក្កយបត្រ</p>
+                </div>
+
+                <div class="space-y-1 text-[11px]">
+                    <div class="flex justify-between">
+                        <span>Inv ID:</span>
+                        <span id="rec-inv-no" class="font-bold">INV-000000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Date:</span>
+                        <span id="rec-date">YYYY-MM-DD</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Customer:</span>
+                        <span id="rec-customer-name" class="font-bold"></span>
+                    </div>
+                </div>
+
+                <div class="border-t border-b border-dashed border-slate-300 py-2 space-y-1">
+                    <div class="font-bold text-xs" id="rec-item-name">Product Name</div>
+                    <div class="text-[10px] text-slate-600">S/N: <span id="rec-item-sn"></span></div>
+                    <div class="flex justify-between text-[11px] pt-1">
+                        <span><span id="rec-item-qty">1</span> x $<span id="rec-item-price">0.00</span></span>
+                        <span class="font-bold">$<span id="rec-item-total">0.00</span></span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between text-sm font-black pt-1">
+                    <span>TOTAL:</span>
+                    <span class="text-emerald-700">$<span id="rec-grand-total">0.00</span></span>
+                </div>
+
+                <div class="text-center text-[10px] text-slate-500 pt-3 border-t border-dashed border-slate-300">
+                    <p>Thank you for choosing Zone Technology!</p>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2 no-print">
+                <button onclick="window.print()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition">
+                    <i class="fa-solid fa-print"></i> Print Slip
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION SCRIPT LOGIC -->
+    <script>
+        // Accounts & RBAC
+        const validUsers = {
+            "Thy_thayuth90": { pass: "thayuth90", role: "Owner", dashboardAccess: true },
+            "Sim-serymom12": { pass: "serymom12", role: "Admin", dashboardAccess: true }
+        };
+
+        let userAccounts = JSON.parse(localStorage.getItem('zone_user_accounts')) || validUsers;
+
+        // Core Catalog Data
+        const initialProducts = {
+            "16Q9269": { name: "WiFi Router AX3000", brand: "TP-Link", category: "Routers", price: 65.00, stock: 25, warranty: "1 Year", specs: "AX3000 Dual Band WiFi 6 Router" },
+            "UNIFI-U6PRO": { name: "UniFi Access Point U6 Pro", brand: "Ubiquiti", category: "UniFi", price: 185.00, stock: 8, warranty: "2 Years", specs: "High-performance WiFi 6 AP with 5.3 Gbps aggregate rate" },
+            "MIKRO-HEX": { name: "MikroTik hEX S Router", brand: "MikroTik", category: "Routers", price: 75.00, stock: 15, warranty: "1 Year", specs: "5x Gigabit Ethernet, SFP, Dual Core 880MHz CPU" },
+            "RUIJIE-EG105": { name: "Ruijie Reyee Cloud Router", brand: "Ruijie", category: "Ruijie", price: 95.00, stock: 3, warranty: "3 Years", specs: "5 Ports Gigabit Router for SMB Network" }
+        };
+
+        let products = JSON.parse(localStorage.getItem('zone_products')) || initialProducts;
+        let salesHistory = JSON.parse(localStorage.getItem('zone_sales_history')) || [];
+        let onlineOrders = JSON.parse(localStorage.getItem('zone_online_orders')) || [];
+        let preOrders = JSON.parse(localStorage.getItem('zone_preorders')) || [];
+        let productReviews = JSON.parse(localStorage.getItem('zone_reviews')) || {};
+        let shoppingCart = [];
+        let selectedFulfillment = 'pickup';
+        let activeProductModalCode = null;
+
+        let cmsData = JSON.parse(localStorage.getItem('zone_cms_data')) || {
+            bannerText: "🔥 Promo: Free Setup & Delivery for UniFi & MikroTik Mesh Systems! Hotline: 098 999 196 / 093 936 893 / 087 768 976",
+            heroTitle: "WiFi 6E & High Performance Networking",
+            heroDesc: "Official supplier of UniFi, MikroTik, Ruijie, TP-Link, Apple MacBooks & Enterprise POS Systems in Cambodia.",
+            adminEmail: "thythayuth90@gmail.com"
+        };
+
+        // Automated Email Dispatcher
+        async function sendSalesNotificationEmail(saleDetails) {
+            const targetEmail = cmsData.adminEmail || "thythayuth90@gmail.com";
+            const emailSubject = `🔔 [Zone Tech New Sale Alert] - ID: ${saleDetails.id}`;
+            
+            const emailBody = `
+=========================================
+ZONE TECHNOLOGY - NEW SALE NOTIFICATION
+=========================================
+ID / Inv Code: ${saleDetails.id}
+Date: ${saleDetails.date}
+Customer Name: ${saleDetails.customerName}
+Phone: ${saleDetails.customerPhone || 'N/A'}
+Type: ${saleDetails.type || 'Direct Sale'}
+
+ITEMS PURCHASED:
+${saleDetails.itemsText}
+
+TOTAL AMOUNT: $${saleDetails.total.toFixed(2)}
+Payment Method: ${saleDetails.paymentMethod || 'Cash / Scan'}
+Fulfillment: ${saleDetails.fulfillment || 'Store POS'}
+
+=========================================
+Sent automatically from Zone Technology Web POS
+            `;
+
+            try {
+                fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        access_key: "0fae248b-e85d-4952-bbfd-dbebe72b7a87",
+                        subject: emailSubject,
+                        from_name: "Zone Tech POS Alert",
+                        to_email: targetEmail,
+                        message: emailBody
+                    })
+                }).catch(err => console.log("Email dispatch backgrounded", err));
+            } catch (err) {
+                console.error("Email notification error:", err);
+            }
+        }
+
+        // Save POS Sale Transaction
+        function saveSaleTransaction() {
+            const code = document.getElementById('pos-search-code').value.trim();
+            const customer = document.getElementById('pos-customer-name').value.trim();
+            const item = document.getElementById('pos-item-name').value.trim();
+            const price = parseFloat(document.getElementById('pos-item-price').value) || 0;
+            const qty = parseInt(document.getElementById('pos-item-qty').value) || 1;
+            const sn = document.getElementById('pos-item-sn').value.trim();
+            const total = parseFloat(document.getElementById('pos-total-price').innerText) || 0;
+
+            if (!item || !customer || !sn) {
+                alert("Please fill in all details (Customer Name, S/N, and Product Code)!");
+                return;
+            }
+
+            const invoiceNo = "INV-" + Math.floor(100000 + Math.random() * 900000);
+            const dateStr = new Date().toISOString().split('T')[0];
+
+            const transaction = {
+                invoiceNo: invoiceNo,
+                date: dateStr,
+                customer: customer,
+                item: item,
+                price: price,
+                qty: qty,
+                sn: sn,
+                total: total
+            };
+
+            salesHistory.unshift(transaction);
+            persistSales();
+
+            // Send Email Alert
+            sendSalesNotificationEmail({
+                id: invoiceNo,
+                date: dateStr,
+                customerName: customer,
+                itemsText: `- ${item} (Qty: ${qty}, S/N: ${sn}, Price: $${price.toFixed(2)})`,
+                total: total,
+                type: "POS Store Sale",
+                paymentMethod: "Cash / Scan POS"
+            });
+
+            showReceipt(transaction);
+
+            // Reset Form
+            document.getElementById('pos-search-code').value = "";
+            document.getElementById('pos-item-name').value = "";
+            document.getElementById('pos-item-price').value = "";
+            document.getElementById('pos-customer-name').value = "";
+            document.getElementById('pos-item-sn').value = "";
+            document.getElementById('pos-total-price').innerText = "0.00";
+
+            renderPosHistoryTable();
+            renderReportsTable();
+        }
+
+        // Submit Guest Online Order
+        function submitOrderPlacement() {
+            const name = document.getElementById('chk-name').value.trim();
+            const phone = document.getElementById('chk-phone').value.trim();
+            const instructions = document.getElementById('chk-instructions').value.trim();
+            const payMethodRadio = document.querySelector('input[name="chk-payment"]:checked');
+            const payMethod = payMethodRadio ? payMethodRadio.value : 'ABA_KHQR';
+
+            if (!name || !phone) {
+                alert("Please enter your name and contact phone number!");
+                return;
+            }
+
+            if (shoppingCart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+            const subtotal = shoppingCart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            const itemsSummaryText = shoppingCart.map(i => `- ${i.name} (Qty: ${i.qty}) @ $${i.price.toFixed(2)}`).join("\n");
+
+            // Deduct inventory stock
+            shoppingCart.forEach(item => {
+                if (products[item.code]) {
+                    products[item.code].stock = Math.max(0, products[item.code].stock - item.qty);
+                }
+            });
+            persistProducts();
+
+            const orderRecord = {
+                orderId: orderId,
+                date: new Date().toISOString().split('T')[0],
+                customerName: name,
+                customerPhone: phone,
+                items: [...shoppingCart],
+                total: subtotal,
+                fulfillment: selectedFulfillment,
+                pickupSlot: selectedFulfillment === 'pickup' ? `${document.getElementById('chk-pickup-date').value || 'Today'} (${document.getElementById('chk-pickup-slot').value})` : null,
+                deliveryAddress: selectedFulfillment === 'delivery' ? document.getElementById('chk-delivery-address').value : null,
+                paymentMethod: payMethod,
+                instructions: instructions,
+                status: "Pending"
+            };
+
+            onlineOrders.unshift(orderRecord);
+            localStorage.setItem('zone_online_orders', JSON.stringify(onlineOrders));
+
+            // Send Email Alert
+            sendSalesNotificationEmail({
+                id: orderId,
+                date: orderRecord.date,
+                customerName: name,
+                customerPhone: phone,
+                itemsText: itemsSummaryText,
+                total: subtotal,
+                type: "Online Customer Order",
+                paymentMethod: payMethod,
+                fulfillment: selectedFulfillment === 'pickup' ? `Store Pickup (${orderRecord.pickupSlot})` : `Delivery (${orderRecord.deliveryAddress})`
+            });
+
+            shoppingCart = [];
+            updateCartBadge();
+            closeCheckoutModal();
+            document.getElementById('chk-name').value = "";
+            document.getElementById('chk-phone').value = "";
+            document.getElementById('chk-instructions').value = "";
+
+            renderCustomerCatalog();
+            renderAdminOrders();
+
+            alert(`Order Placed Successfully!\n\nYour Order ID: ${orderId}\nZone Technology team will process your order promptly.`);
+        }
+
+        function populateCmsForm() {
+            document.getElementById('cms-banner-input').value = cmsData.bannerText;
+            document.getElementById('cms-title-input').value = cmsData.heroTitle;
+            document.getElementById('cms-desc-input').value = cmsData.heroDesc;
+            document.getElementById('cms-email-input').value = cmsData.adminEmail || "thythayuth90@gmail.com";
+        }
+
+        function updateCmsBanners() {
+            cmsData.bannerText = document.getElementById('cms-banner-input').value;
+            cmsData.heroTitle = document.getElementById('cms-title-input').value;
+            cmsData.heroDesc = document.getElementById('cms-desc-input').value;
+            cmsData.adminEmail = document.getElementById('cms-email-input').value || "thythayuth90@gmail.com";
+
+            localStorage.setItem('zone_cms_data', JSON.stringify(cmsData));
+            document.getElementById('promo-banner-text').innerText = cmsData.bannerText;
+            document.getElementById('hero-banner-title').innerText = cmsData.heroTitle;
+            document.getElementById('hero-banner-desc').innerText = cmsData.heroDesc;
+
+            alert("Website banners and email settings updated live!");
+        }
+
+        function openLoginModal() {
+            const loggedUser = localStorage.getItem('zone_logged_user');
+            if (loggedUser && userAccounts[loggedUser] && userAccounts[loggedUser].dashboardAccess) {
+                showAdminView();
+            } else {
+                document.getElementById('login-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value.trim();
+
+            if (userAccounts[u] && userAccounts[u].pass === p) {
+                if (!userAccounts[u].dashboardAccess) {
+                    alert("Your account does not have Admin Dashboard permission!");
+                    return;
+                }
+                localStorage.setItem('zone_logged_user', u);
+                closeLoginModal();
+                showAdminView();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('zone_logged_user');
+            showStorefrontView();
+            document.getElementById('admin-portal-label').innerText = "Admin Portal";
+        }
+
+        function showAdminView() {
+            const loggedUser = localStorage.getItem('zone_logged_user');
+            document.getElementById('view-storefront').classList.add('hidden');
+            document.getElementById('view-admin-dashboard').classList.remove('hidden');
+            document.getElementById('admin-username-display').innerText = `${loggedUser} (${userAccounts[loggedUser].role})`;
+            document.getElementById('admin-portal-label').innerText = "Dashboard";
+            switchAdminSubtab('pos');
+        }
+
+        function switchAdminSubtab(tab) {
+            ['pos', 'orders', 'preorders', 'stock', 'banner', 'reports', 'users'].forEach(t => {
+                document.getElementById(`admin-subtab-${t}`).classList.add('hidden');
+                const navBtn = document.getElementById(`admin-nav-${t}`);
+                if (navBtn) navBtn.className = "px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white hover:bg-slate-800";
+            });
+
+            document.getElementById(`admin-subtab-${tab}`).classList.remove('hidden');
+            document.getElementById(`admin-nav-${tab}`).className = "px-4 py-2 text-xs font-bold rounded-xl transition bg-blue-600 text-white";
+
+            if (tab === 'orders') renderAdminOrders();
+            if (tab === 'stock') renderProductsList();
+            if (tab === 'preorders') renderPreOrdersList();
+            if (tab === 'reports') { renderReportsTable(); renderAnalyticsCharts(); }
+            if (tab === 'users') renderUserManagementTable();
+            if (tab === 'banner') populateCmsForm();
+        }
+
+        let currentLang = localStorage.getItem('zone_language') || 'km';
+
+        const i18nDict = {
+            km: {
+                storefront: "ហាងទំនិញ",
+                adminPortal: "ប្រព័ន្ធគ្រប់គ្រង",
+                heroSubtitle: "ដំណោះស្រាយបណ្តាញអ៊ីនធឺណិត និងព័ត៌មានវិទ្យាអាជីវកម្ម",
+                exploreProducts: "មើលទំនិញទាំងអស់",
+                requestQuote: "ស្នើសុំតម្លៃពិសេស",
+                posScan: "ស្កែនលក់ទំនិញ (POS)",
+                scanItemCode: "ស្កែន ឬ វាយលេខកូដទំនិញ",
+                scanBtn: "ស្កែន",
+                addToBag: "ដាក់ចូលកញ្ចប់",
+                details: "ព័ត៌មានលម្អិត",
+                subtotal: "តម្លៃសរុប",
+                checkout: "បន្តទៅការទូទាត់ប្រាក់",
+                totalPayable: "តម្លៃត្រូវទូទាត់សរុប"
+            },
+            en: {
+                storefront: "Storefront",
+                adminPortal: "Admin Portal",
+                heroSubtitle: "Enterprise Networking & IT Solutions",
+                exploreProducts: "Explore Products",
+                requestQuote: "Request Quote",
+                posScan: "POS Express Scan",
+                scanItemCode: "Scan / Enter Item Code",
+                scanBtn: "Scan",
+                addToBag: "Add to Bag",
+                details: "Details",
+                subtotal: "Subtotal",
+                checkout: "Proceed to Checkout",
+                totalPayable: "Total Payable"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'km' ? 'en' : 'km';
+            localStorage.setItem('zone_language', currentLang);
+            applyLanguageTranslations();
+        }
+
+        function applyLanguageTranslations() {
+            const langBtnLabel = document.getElementById('lang-label');
+            const langFlag = document.getElementById('lang-flag');
+            
+            if (langBtnLabel) langBtnLabel.innerText = currentLang === 'km' ? 'ខ្មែរ' : 'English';
+            if (langFlag) langFlag.innerText = currentLang === 'km' ? '🇰🇭' : '🇬🇧';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nDict[currentLang] && i18nDict[currentLang][key]) {
+                    el.innerText = i18nDict[currentLang][key];
+                }
+            });
+        }
+
+        // Customer Catalog Renderer
+        function renderCustomerCatalog() {
+            const grid = document.getElementById('customer-product-grid');
+            if (!grid) return;
+            grid.innerHTML = "";
+
+            const searchQuery = (document.getElementById('store-search-query').value || "").toLowerCase();
+            const catFilter = document.getElementById('store-category-filter').value;
+            const availFilter = document.getElementById('store-availability-filter').value;
+
+            const codes = Object.keys(products);
+            let count = 0;
+
+            codes.forEach(code => {
+                const p = products[code];
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery) || 
+                                     (p.brand && p.brand.toLowerCase().includes(searchQuery)) || 
+                                     code.toLowerCase().includes(searchQuery);
+                
+                const matchesCat = catFilter === 'ALL' || (p.category && p.category === catFilter);
+                
+                let matchesAvail = true;
+                if (availFilter === 'IN_STOCK') matchesAvail = p.stock > 5;
+                else if (availFilter === 'LOW_STOCK') matchesAvail = p.stock > 0 && p.stock <= 5;
+                else if (availFilter === 'PRE_ORDER') matchesAvail = p.stock === 0;
+
+                if (matchesSearch && matchesCat && matchesAvail) {
+                    count++;
+                    let stockBadge = `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">In Stock (${p.stock})</span>`;
+                    if (p.stock <= 0) {
+                        stockBadge = `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">Pre-order Available</span>`;
+                    } else if (p.stock <= 5) {
+                        stockBadge = `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">Low Stock (${p.stock})</span>`;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-900 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between space-y-4 hover:border-slate-700 transition shadow-xl";
+                    card.innerHTML = `
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/60 px-2.5 py-1 rounded-lg border border-blue-800/40">${p.category || 'Networking'}</span>
+                                ${stockBadge}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-sm line-clamp-1">${p.name}</h3>
+                                <p class="text-[11px] text-slate-400 font-mono">Code: ${code} ${p.brand ? '| ' + p.brand : ''}</p>
+                            </div>
+                            <p class="text-xs text-slate-400 line-clamp-2">${p.specs || 'Enterprise Grade Hardware Solution'}</p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+                            <div>
+                                <span class="text-[10px] text-slate-500 block">Price</span>
+                                <span class="text-base font-black text-emerald-400">$${p.price.toFixed(2)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="openProductModal('${code}')" class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs transition">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </button>
+                                <button onclick="addToCart('${code}')" class="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bag-shopping"></i> <span data-i18n="addToBag">Add to Bag</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+
+            if (count === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-xs font-semibold">No products found matching filters.</div>`;
+            }
+        }
+
+        // Cart Operations
+        function toggleCartDrawer() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+            document.getElementById('cart-drawer').classList.toggle('flex');
+            renderCartItems();
+        }
+
+        function addToCart(code) {
+            const p = products[code];
+            if (!p) return;
+
+            const existing = shoppingCart.find(i => i.code === code);
+            if (existing) {
+                existing.qty++;
+            } else {
+                shoppingCart.push({ code: code, name: p.name, price: p.price, qty: 1 });
+            }
+
+            updateCartBadge();
+            toggleCartDrawer();
+        }
+
+        function updateCartBadge() {
+            const totalQty = shoppingCart.reduce((sum, i) => sum + i.qty, 0);
+            document.getElementById('cart-badge-count').innerText = totalQty;
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = "";
+
+            let subtotal = 0;
+            shoppingCart.forEach((item, index) => {
+                subtotal += item.price * item.qty;
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs";
+                div.innerHTML = `
+                    <div>
+                        <span class="font-bold text-white block">${item.name}</span>
+                        <span class="text-emerald-400 font-semibold">$${item.price.toFixed(2)} x ${item.qty}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="adjustCartQty(${index}, -1)" class="w-6 h-6 bg-slate-800 text-white rounded font-bold">-</button>
+                        <span class="font-bold text-white">${item.qty}</span>
+                        <button onclick="adjustCartQty(${index}, 1)" class="w-6 h-6 bg-slate-800 text-white rounded font-bold">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('cart-subtotal-val').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('chk-modal-total').innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        function adjustCartQty(index, delta) {
+            shoppingCart[index].qty += delta;
+            if (shoppingCart[index].qty <= 0) shoppingCart.splice(index, 1);
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function openCheckoutModal() {
+            if (shoppingCart.length === 0) {
+                alert("Your shopping bag is empty!");
+                return;
+            }
+            toggleCartDrawer();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            document.getElementById('checkout-modal').classList.add('flex');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('flex');
+        }
+
+        function setFulfillment(method) {
+            selectedFulfillment = method;
+            if (method === 'pickup') {
+                document.getElementById('btn-ful-pickup').className = "p-3 bg-blue-600 border border-blue-500 rounded-xl text-xs font-bold text-white text-center";
+                document.getElementById('btn-ful-delivery').className = "p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-slate-400 text-center";
+                document.getElementById('fulfillment-pickup-fields').classList.remove('hidden');
+                document.getElementById('fulfillment-delivery-fields').classList.add('hidden');
+            } else {
+                document.getElementById('btn-ful-delivery').className = "p-3 bg-blue-600 border border-blue-500 rounded-xl text-xs font-bold text-white text-center";
+                document.getElementById('btn-ful-pickup').className = "p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs font-bold text-slate-400 text-center";
+                document.getElementById('fulfillment-delivery-fields').classList.remove('hidden');
+                document.getElementById('fulfillment-pickup-fields').classList.add('hidden');
+            }
+        }
+
+        // Admin Customer Orders Management
+        function renderAdminOrders() {
+            const tbody = document.getElementById('admin-orders-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            onlineOrders = JSON.parse(localStorage.getItem('zone_online_orders')) || [];
+            document.getElementById('orders-count-badge').innerText = `${onlineOrders.length} Orders`;
+
+            if (onlineOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500">No online customer orders found.</td></tr>`;
+                return;
+            }
+
+            onlineOrders.forEach((ord) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                
+                const itemsList = ord.items ? ord.items.map(i => `${i.name} (x${i.qty})`).join(', ') : 'N/A';
+                
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-blue-400">${ord.orderId}</td>
+                    <td class="p-3"><b>${ord.customerName}</b><br><span class="text-[10px] text-slate-500">${ord.customerPhone}</span><br><span class="text-[10px] text-slate-400">${itemsList}</span></td>
+                    <td class="p-3 text-[11px]">${ord.fulfillment === 'pickup' ? `📍 Pickup: ${ord.pickupSlot || 'Store'}` : `🚚 Delivery: ${ord.deliveryAddress || 'Address set'}`}</td>
+                    <td class="p-3 font-bold text-xs">${ord.paymentMethod}</td>
+                    <td class="p-3 font-black text-emerald-400">$${ord.total ? ord.total.toFixed(2) : '0.00'}</td>
+                    <td class="p-3 text-center">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${ord.status === 'Paid' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-300'}">${ord.status}</span>
+                    </td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="updateOrderStatus('${ord.orderId}', 'Paid')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-[10px] font-bold transition">Mark Paid</button>
+                        <button onclick="updateOrderStatus('${ord.orderId}', 'Delivered')" class="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-[10px] font-bold transition">Delivered</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateOrderStatus(id, newStatus) {
+            const ord = onlineOrders.find(o => o.orderId === id);
+            if (ord) {
+                ord.status = newStatus;
+                localStorage.setItem('zone_online_orders', JSON.stringify(onlineOrders));
+                renderAdminOrders();
+            }
+        }
+
+        // Product Modal & Reviews
+        function openProductModal(code) {
+            activeProductModalCode = code;
+            const p = products[code];
+            if (!p) return;
+
+            document.getElementById('pmodal-brand').innerText = p.brand || "Zone Tech";
+            document.getElementById('pmodal-name').innerText = p.name;
+            document.getElementById('pmodal-price').innerText = `$${p.price.toFixed(2)}`;
+            document.getElementById('pmodal-warranty').innerText = p.warranty || "Standard Store Warranty";
+            document.getElementById('pmodal-specs').innerText = p.specs || "Enterprise Networking Specifications";
+
+            renderReviewsForActiveProduct();
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('product-modal').classList.remove('flex');
+        }
+
+        function renderReviewsForActiveProduct() {
+            const container = document.getElementById('pmodal-reviews-list');
+            container.innerHTML = "";
+            const revs = productReviews[activeProductModalCode] || [];
+
+            if (revs.length === 0) {
+                container.innerHTML = `<p class="text-[11px] text-slate-500">No customer reviews yet. Be the first to review!</p>`;
+                return;
+            }
+
+            revs.forEach(r => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 p-2 rounded border border-slate-800 text-[11px]";
+                div.innerHTML = `<span class="text-yellow-400 font-bold">${'⭐'.repeat(r.rating)}</span> <span class="text-slate-400">(${r.date})</span><p class="text-slate-200 mt-1">${r.comment}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        function submitProductReview() {
+            const rating = parseInt(document.getElementById('rev-rating').value);
+            const comment = document.getElementById('rev-comment').value.trim();
+            if (!comment) return;
+
+            if (!productReviews[activeProductModalCode]) productReviews[activeProductModalCode] = [];
+            productReviews[activeProductModalCode].push({
+                rating: rating,
+                comment: comment,
+                date: new Date().toISOString().split('T')[0]
+            });
+
+            localStorage.setItem('zone_reviews', JSON.stringify(productReviews));
+            document.getElementById('rev-comment').value = "";
+            renderReviewsForActiveProduct();
+        }
+
+        // RBAC Management
+        function renderUserManagementTable() {
+            const tbody = document.getElementById('users-rbac-tbody');
+            tbody.innerHTML = "";
+
+            Object.keys(userAccounts).forEach(u => {
+                const usr = userAccounts[u];
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${u}</td>
+                    <td class="p-3 font-semibold text-blue-400">${usr.role}</td>
+                    <td class="p-3 font-bold ${usr.dashboardAccess ? 'text-emerald-400' : 'text-rose-400'}">${usr.dashboardAccess ? 'Granted' : 'Disabled'}</td>
+                    <td class="p-3 text-right">
+                        ${usr.role !== 'Owner' ? `
+                            <button onclick="toggleUserDashboardAccess('${u}')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-[10px]">
+                                Toggle Access
+                            </button>
+                        ` : '<span class="text-slate-500 text-[10px]">Full Owner</span>'}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleUserDashboardAccess(username) {
+            const currentUser = localStorage.getItem('zone_logged_user');
+            if (currentUser !== 'Thy_thayuth90') {
+                alert("Only the Owner (Thy_thayuth90) has permission to manage staff roles!");
+                return;
+            }
+            if (userAccounts[username]) {
+                userAccounts[username].dashboardAccess = !userAccounts[username].dashboardAccess;
+                localStorage.setItem('zone_user_accounts', JSON.stringify(userAccounts));
+                renderUserManagementTable();
+            }
+        }
+
+        function requestQuotePrompt() {
+            alert("For Enterprise RFQ & Custom IT Quotes, please contact Zone Technology Hotline:\n📞 098 999 196 / 093 936 893 / 087 768 976\n📧 thythayuth90@gmail.com");
+        }
+
+        // POS & Scanner Functions
+        function setQuickQty(qty) {
+            const qtyInput = document.getElementById('pos-item-qty');
+            if (qtyInput) {
+                qtyInput.value = qty;
+                calculatePosTotal();
+            }
+        }
+
+        function onPosCodeInput() {
+            const codeInput = document.getElementById('pos-search-code');
+            if (!codeInput) return;
+            const code = codeInput.value.trim().toUpperCase();
+            
+            if (products[code]) {
+                const p = products[code];
+                document.getElementById('pos-item-name').value = p.name;
+                document.getElementById('pos-item-price').value = p.price;
+                document.getElementById('pos-stock-badge').innerText = `Stock: ${p.stock}`;
+                document.getElementById('pos-stock-badge').className = p.stock > 0 
+                    ? "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400"
+                    : "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400";
+                calculatePosTotal();
+            } else {
+                document.getElementById('pos-item-name').value = "";
+                document.getElementById('pos-item-price').value = "";
+                document.getElementById('pos-stock-badge').innerText = "Stock: -";
+                document.getElementById('pos-stock-badge').className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400";
+                document.getElementById('pos-total-price').innerText = "0.00";
+            }
+        }
+
+        function calculatePosTotal() {
+            const price = parseFloat(document.getElementById('pos-item-price').value) || 0;
+            const qty = parseInt(document.getElementById('pos-item-qty').value) || 1;
+            document.getElementById('pos-total-price').innerText = (price * qty).toFixed(2);
+        }
+
+        let html5QrcodeScanner = null;
+        function openCameraScanner() {
+            document.getElementById('camera-modal').classList.remove('hidden');
+            document.getElementById('camera-modal').classList.add('flex');
+            
+            if (!html5QrcodeScanner) {
+                html5QrcodeScanner = new Html5Qrcode("reader");
+            }
+            
+            html5QrcodeScanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 200, height: 200 } },
+                (decodedText) => {
+                    document.getElementById('pos-search-code').value = decodedText.trim().toUpperCase();
+                    onPosCodeInput();
+                    closeCameraScanner();
+                },
+                () => {}
+            ).catch(err => console.error("Camera access error:", err));
+        }
+
+        function closeCameraScanner() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    document.getElementById('camera-modal').classList.add('hidden');
+                    document.getElementById('camera-modal').classList.remove('flex');
+                }).catch(() => {
+                    document.getElementById('camera-modal').classList.add('hidden');
+                    document.getElementById('camera-modal').classList.remove('flex');
+                });
+            } else {
+                document.getElementById('camera-modal').classList.add('hidden');
+                document.getElementById('camera-modal').classList.remove('flex');
+            }
+        }
+
+        function showReceipt(data) {
+            document.getElementById('rec-inv-no').innerText = data.invoiceNo;
+            document.getElementById('rec-date').innerText = data.date;
+            document.getElementById('rec-customer-name').innerText = data.customer;
+            document.getElementById('rec-item-name').innerText = data.item;
+            document.getElementById('rec-item-sn').innerText = data.sn;
+            document.getElementById('rec-item-qty').innerText = data.qty;
+            document.getElementById('rec-item-price').innerText = data.price.toFixed(2);
+            document.getElementById('rec-item-total').innerText = data.total.toFixed(2);
+            document.getElementById('rec-grand-total').innerText = data.total.toFixed(2);
+
+            document.getElementById('receipt-modal').classList.remove('hidden');
+            document.getElementById('receipt-modal').classList.add('flex');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+            document.getElementById('receipt-modal').classList.remove('flex');
+        }
+
+        function renderPosHistoryTable() {
+            const tbody = document.getElementById('pos-history-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            document.getElementById('recent-sales-count').innerText = `${salesHistory.length} Sales`;
+
+            salesHistory.slice(0, 15).forEach(s => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-blue-400">${s.invoiceNo}</td>
+                    <td class="p-3">${s.date}</td>
+                    <td class="p-3 font-semibold text-white">${s.customer}</td>
+                    <td class="p-3">${s.item} (x${s.qty})</td>
+                    <td class="p-3 font-mono text-[10px] text-slate-400">${s.sn}</td>
+                    <td class="p-3 text-right font-black text-emerald-400">$${s.total.toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Product & Stock Catalog
+        function renderProductsList() {
+            const tbody = document.getElementById('products-list-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            const codes = Object.keys(products);
+            document.getElementById('product-count-label').innerText = `${codes.length} Products`;
+
+            const poSelect = document.getElementById('po-product-select');
+            if (poSelect) {
+                poSelect.innerHTML = `<option value="">-- Select Item --</option>`;
+                codes.forEach(c => {
+                    poSelect.innerHTML += `<option value="${c}">${products[c].name} ($${products[c].price})</option>`;
+                });
+            }
+
+            codes.forEach(code => {
+                const p = products[code];
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-blue-400">${code}</td>
+                    <td class="p-3 font-bold text-white">${p.name}</td>
+                    <td class="p-3 text-slate-400">${p.category || 'General'}</td>
+                    <td class="p-3 font-black text-emerald-400">$${p.price.toFixed(2)}</td>
+                    <td class="p-3 font-bold ${p.stock <= 5 ? 'text-amber-400' : 'text-slate-200'}">${p.stock}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="openQrStickerModal('${code}')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-blue-300 rounded text-[10px] font-bold">
+                            <i class="fa-solid fa-qrcode mr-1"></i> QR Sticker
+                        </button>
+                    </td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="editProduct('${code}')" class="px-2 py-1 bg-blue-600/30 text-blue-300 hover:bg-blue-600 hover:text-white rounded text-[10px]">Edit</button>
+                        <button onclick="deleteProduct('${code}')" class="px-2 py-1 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded text-[10px]">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function saveNewProduct() {
+            const code = document.getElementById('prod-code-input').value.trim().toUpperCase();
+            const name = document.getElementById('prod-name-input').value.trim();
+            const cat = document.getElementById('prod-cat-input').value;
+            const brand = document.getElementById('prod-brand-input').value.trim();
+            const price = parseFloat(document.getElementById('prod-price-input').value) || 0;
+            const stock = parseInt(document.getElementById('prod-stock-input').value) || 0;
+            const warranty = document.getElementById('prod-warranty-input').value.trim();
+            const specs = document.getElementById('prod-specs-input').value.trim();
+
+            if (!code || !name) {
+                alert("Please fill in at least Item Code and Product Name!");
+                return;
+            }
+
+            products[code] = {
+                name: name,
+                category: cat,
+                brand: brand,
+                price: price,
+                stock: stock,
+                warranty: warranty,
+                specs: specs
+            };
+
+            persistProducts();
+            renderProductsList();
+            renderCustomerCatalog();
+
+            document.getElementById('prod-code-input').value = "";
+            document.getElementById('prod-name-input').value = "";
+            document.getElementById('prod-brand-input').value = "";
+            document.getElementById('prod-price-input').value = "";
+            document.getElementById('prod-stock-input').value = "";
+            document.getElementById('prod-warranty-input').value = "";
+            document.getElementById('prod-specs-input').value = "";
+
+            alert(`Product '${name}' saved successfully!`);
+        }
+
+        function editProduct(code) {
+            const p = products[code];
+            if (!p) return;
+            document.getElementById('prod-code-input').value = code;
+            document.getElementById('prod-name-input').value = p.name;
+            document.getElementById('prod-cat-input').value = p.category || 'Networking';
+            document.getElementById('prod-brand-input').value = p.brand || '';
+            document.getElementById('prod-price-input').value = p.price;
+            document.getElementById('prod-stock-input').value = p.stock;
+            document.getElementById('prod-warranty-input').value = p.warranty || '';
+            document.getElementById('prod-specs-input').value = p.specs || '';
+        }
+
+        function deleteProduct(code) {
+            if (confirm(`Are you sure you want to delete item code ${code}?`)) {
+                delete products[code];
+                persistProducts();
+                renderProductsList();
+                renderCustomerCatalog();
+            }
+        }
+
+        function openQrStickerModal(code) {
+            const p = products[code];
+            if (!p) return;
+
+            document.getElementById('modal-qr-code-text').innerText = code;
+            document.getElementById('modal-qr-name-text').innerText = p.name;
+            document.getElementById('modal-qr-price-text').innerText = `$${p.price.toFixed(2)}`;
+
+            const container = document.getElementById('modal-qr-container');
+            container.innerHTML = "";
+            new QRCode(container, {
+                text: code,
+                width: 120,
+                height: 120,
+                colorDark: "#000000",
+                colorLight: "#ffffff"
+            });
+
+            document.getElementById('qr-modal').classList.remove('hidden');
+            document.getElementById('qr-modal').classList.add('flex');
+        }
+
+        function closeQrModal() {
+            document.getElementById('qr-modal').classList.add('hidden');
+            document.getElementById('qr-modal').classList.remove('flex');
+        }
+
+        // Pre-Orders
+        function onPreorderProductSelect() {
+            const code = document.getElementById('po-product-select').value;
+            if (products[code]) {
+                calculatePreorderTotal();
+            }
+        }
+
+        function calculatePreorderTotal() {
+            const code = document.getElementById('po-product-select').value;
+            const qty = parseInt(document.getElementById('po-qty').value) || 1;
+            if (products[code]) {
+                document.getElementById('po-total-price').value = (products[code].price * qty).toFixed(2);
+            }
+        }
+
+        function savePreOrder() {
+            const name = document.getElementById('po-customer-name').value.trim();
+            const phone = document.getElementById('po-customer-phone').value.trim();
+            const code = document.getElementById('po-product-select').value;
+            const qty = parseInt(document.getElementById('po-qty').value) || 1;
+            const total = parseFloat(document.getElementById('po-total-price').value) || 0;
+            const deposit = parseFloat(document.getElementById('po-deposit').value) || 0;
+            const expected = document.getElementById('po-expected-date').value;
+
+            if (!name || !code) {
+                alert("Please select a product and enter the customer name!");
+                return;
+            }
+
+            const poCode = "PO-" + Math.floor(100000 + Math.random() * 900000);
+            const poItem = {
+                poCode: poCode,
+                customer: name,
+                phone: phone,
+                productCode: code,
+                productName: products[code].name,
+                qty: qty,
+                total: total,
+                deposit: deposit,
+                expectedDate: expected || 'N/A',
+                status: 'Pending'
+            };
+
+            preOrders.unshift(poItem);
+            persistPreorders();
+            renderPreOrdersList();
+
+            document.getElementById('po-customer-name').value = "";
+            document.getElementById('po-customer-phone').value = "";
+            document.getElementById('po-deposit').value = "0";
+
+            alert(`Pre-order ${poCode} created!`);
+        }
+
+        function renderPreOrdersList() {
+            const tbody = document.getElementById('preorders-list-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            document.getElementById('preorder-count-label').innerText = `${preOrders.length} Pre-orders`;
+
+            preOrders.forEach((po, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-blue-400">${po.poCode}</td>
+                    <td class="p-3"><b>${po.customer}</b><br><span class="text-[10px] text-slate-500">${po.phone}</span></td>
+                    <td class="p-3">${po.productName} (x${po.qty})</td>
+                    <td class="p-3 font-bold text-emerald-400">$${po.deposit.toFixed(2)} / $${po.total.toFixed(2)}</td>
+                    <td class="p-3 text-slate-400">${po.expectedDate}</td>
+                    <td class="p-3 text-center">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${po.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${po.status}</span>
+                    </td>
+                    <td class="p-3 text-right">
+                        ${po.status !== 'Completed' ? `<button onclick="completePreOrder(${index})" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-[10px] font-bold">Complete</button>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function completePreOrder(index) {
+            preOrders[index].status = 'Completed';
+            persistPreorders();
+            renderPreOrdersList();
+        }
+
+        // Reports & Analytics
+        function renderReportsTable(filteredData = null) {
+            const tbody = document.getElementById('reports-table-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            const dataToDisplay = filteredData || salesHistory;
+            let grandTotal = 0;
+            let totalQty = 0;
+
+            dataToDisplay.forEach(s => {
+                grandTotal += s.total;
+                totalQty += s.qty;
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-blue-400">${s.invoiceNo}</td>
+                    <td class="p-3">${s.date}</td>
+                    <td class="p-3 font-semibold text-white">${s.customer}</td>
+                    <td class="p-3">${s.item} (x${s.qty})</td>
+                    <td class="p-3 font-mono text-[10px] text-slate-400">${s.sn}</td>
+                    <td class="p-3 text-right font-black text-emerald-400">$${s.total.toFixed(2)}</td>
+                    <td class="p-3 text-center">
+                        <button onclick='showReceipt(${JSON.stringify(s)})' class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-blue-300 rounded text-[10px]">Slip</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('report-total-revenue').innerText = grandTotal.toFixed(2);
+            document.getElementById('report-total-sales-count').innerText = dataToDisplay.length;
+            document.getElementById('report-total-qty-sold').innerText = totalQty;
+        }
+
+        function filterSalesReport() {
+            const month = document.getElementById('report-month-select').value;
+            if (!month) {
+                renderReportsTable();
+                return;
+            }
+            const filtered = salesHistory.filter(s => s.date.startsWith(month));
+            renderReportsTable(filtered);
+        }
+
+        function resetReportFilter() {
+            document.getElementById('report-month-select').value = "";
+            renderReportsTable();
+        }
+
+        let revenueChartInstance = null;
+        let itemsChartInstance = null;
+
+        function renderAnalyticsCharts() {
+            const revCanvas = document.getElementById('revenueChart');
+            const itemsCanvas = document.getElementById('itemsChart');
+
+            if (!revCanvas || !itemsCanvas) return;
+
+            const salesByDate = {};
+            const salesByItem = {};
+
+            salesHistory.forEach(s => {
+                salesByDate[s.date] = (salesByDate[s.date] || 0) + s.total;
+                salesByItem[s.item] = (salesByItem[s.item] || 0) + s.qty;
+            });
+
+            const dates = Object.keys(salesByDate).reverse().slice(-7);
+            const revenues = dates.map(d => salesByDate[d]);
+
+            const itemNames = Object.keys(salesByItem).slice(0, 5);
+            const itemQtys = itemNames.map(i => salesByItem[i]);
+
+            if (revenueChartInstance) revenueChartInstance.destroy();
+            revenueChartInstance = new Chart(revCanvas, {
+                type: 'line',
+                data: {
+                    labels: dates.length ? dates : ['No Sales'],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: revenues.length ? revenues : [0],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+            });
+
+            if (itemsChartInstance) itemsChartInstance.destroy();
+            itemsChartInstance = new Chart(itemsCanvas, {
+                type: 'bar',
+                data: {
+                    labels: itemNames.length ? itemNames : ['No Items'],
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: itemQtys.length ? itemQtys : [0],
+                        backgroundColor: '#10b981'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+            });
+        }
+
+        function showStorefrontView() {
+            document.getElementById('view-storefront').classList.remove('hidden');
+            document.getElementById('view-admin-dashboard').classList.add('hidden');
+        }
+
+        function persistProducts() { localStorage.setItem('zone_products', JSON.stringify(products)); }
+        function persistSales() { localStorage.setItem('zone_sales_history', JSON.stringify(salesHistory)); }
+        function persistPreorders() { localStorage.setItem('zone_preorders', JSON.stringify(preOrders)); }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            renderCustomerCatalog();
+            updateCartBadge();
+            renderAdminOrders();
+            renderPosHistoryTable();
+            document.getElementById('promo-banner-text').innerText = cmsData.bannerText;
+            document.getElementById('hero-banner-title').innerText = cmsData.heroTitle;
+            document.getElementById('hero-banner-desc').innerText = cmsData.heroDesc;
+            applyLanguageTranslations();
+        };
+    </script>
+</body>
+</html>
